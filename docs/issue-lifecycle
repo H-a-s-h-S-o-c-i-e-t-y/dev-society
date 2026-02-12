@@ -1,0 +1,353 @@
+# Dev Society – Issue Lifecycle
+
+Version: 1.0  
+Status: Foundational Operational Specification  
+Authority: Dev Society Constitution  
+
+---
+
+## 1. Purpose
+
+This document defines the formal lifecycle of an Issue within the Dev Society governance and development system.
+
+An Issue is the only legitimate trigger of autonomous development activity.
+
+No code may be written, modified, reviewed, or merged without an Issue passing through the states defined here.
+
+---
+
+## 2. Core Principle
+
+All development is state-driven.
+
+Every Issue must exist in exactly one state at any given time.
+
+State transitions must be:
+
+- Explicit
+- Logged
+- Auditable
+- Deterministic
+
+No hidden transitions are permitted.
+
+---
+
+## 3. Lifecycle States
+
+An Issue progresses through the following states:
+
+- Proposed
+↓
+- Validated
+↓
+- Risk Classified
+↓
+- Approved for Execution
+↓
+- In Implementation
+↓
+- Under Review
+↓
+- Consensus Achieved
+↓
+- Merged
+↓
+- Closed
+
+
+Each state has strict entry and exit conditions.
+
+---
+
+## 4. State Definitions
+
+---
+
+### 4.1 Proposed
+
+Definition:
+The Issue has been formally created but not yet verified.
+
+Entry Conditions:
+- Issue contains required fields:
+  - Unique identifier
+  - Category
+  - Objective
+  - Scope
+  - Justification
+
+Exit Conditions:
+- Schema validation passed
+- Category confirmed
+
+Responsible Actor:
+- Human Maintainer
+- Governance Agent (proposal)
+- Metrics Agent (observational)
+
+No development activity is permitted in this state.
+
+---
+
+### 4.2 Validated
+
+Definition:
+The Issue schema and category have been verified as correct.
+
+Entry Conditions:
+- Structural validation passed
+- Protected domain scan completed
+
+Exit Conditions:
+- Risk classification completed
+
+Responsible Actor:
+- Validation Agent
+
+---
+
+### 4.3 Risk Classified
+
+Definition:
+The Issue has been assigned a risk level.
+
+Risk Levels:
+- Low
+- Medium
+- High
+
+Entry Conditions:
+- Scope analyzed
+- Affected modules identified
+
+Exit Conditions:
+- If Low/Medium → automatic progression
+- If High → human escalation required
+
+Responsible Actor:
+- Risk Classification Agent
+
+---
+
+### 4.4 Approved for Execution
+
+Definition:
+The Issue is authorized to enter implementation.
+
+Entry Conditions:
+- Risk evaluation completed
+- Required approvals obtained
+- Protected domains cleared
+
+Exit Conditions:
+- Implementation started
+
+Responsible Actor:
+- Governance Agent
+- Human Maintainer (for high-risk approval)
+
+---
+
+### 4.5 In Implementation
+
+Definition:
+An implementation branch is being generated.
+
+Entry Conditions:
+- Approved for Execution
+
+Actions:
+- Code generation
+- Test generation
+- Documentation updates
+
+Exit Conditions:
+- Pull Request created
+
+Responsible Actor:
+- Implementation Agent
+
+---
+
+### 4.6 Under Review
+
+Definition:
+Implementation is being reviewed by independent agents.
+
+Entry Conditions:
+- Pull Request exists
+- Implementation logs available
+
+Actions:
+- Code analysis
+- Test validation
+- Invariant verification
+- Architectural consistency check
+
+Exit Conditions:
+- Review decisions recorded
+
+Responsible Actors:
+- Reviewer Agent A
+- Reviewer Agent B (independent configuration)
+
+---
+
+### 4.7 Consensus Achieved
+
+Definition:
+Reviewers agree on acceptance.
+
+Entry Conditions:
+- At least two independent approvals
+- No constitutional violation detected
+
+Exit Conditions:
+- Merge authorization granted
+
+If disagreement:
+- Escalation required
+
+---
+
+### 4.8 Merged
+
+Definition:
+Code has been merged into protected branch.
+
+Entry Conditions:
+- Consensus achieved
+- Merge authorization confirmed
+
+Actions:
+- Commit logged
+- Version updated
+- Audit record created
+
+Exit Conditions:
+- Post-merge validation passed
+
+---
+
+### 4.9 Closed
+
+Definition:
+The Issue is fully resolved.
+
+Entry Conditions:
+- Merge completed
+- All logs stored
+- No pending escalation
+
+This state is terminal.
+
+---
+
+## 5. Escalation Rules
+
+Escalation is mandatory when:
+
+- Risk level = High
+- Reviewers disagree
+- Constitutional conflict detected
+- Protected domain modification requested
+- Invariant violation suspected
+
+Escalated Issues require Human Constitutional Maintainer intervention.
+
+---
+
+## 6. State Transition Constraints
+
+Allowed transitions:
+
+- Proposed → Validated
+- Validated → Risk Classified
+- Risk Classified → Approved for Execution
+- Approved for Execution → In Implementation
+- In Implementation → Under Review
+- Under Review → Consensus Achieved
+- Consensus Achieved → Merged
+- Merged → Closed
+
+Backward transitions are prohibited except via explicit Escalation Reset.
+
+---
+
+## 7. Logging Requirements
+
+Each transition must log:
+
+- Timestamp
+- Responsible agent
+- Model version
+- Prompt hash (if applicable)
+- Decision rationale
+- Risk level (if applicable)
+
+Logs must be immutable and auditable.
+
+---
+
+## 8. Determinism Requirement
+
+Given:
+
+- Same Issue definition
+- Same model versions
+- Same configuration
+
+The state progression must be reproducible.
+
+Non-deterministic drift must trigger monitoring alerts.
+
+---
+
+## 9. Parallel Execution
+
+Multiple Issues may progress independently.
+
+However:
+
+- Only one Issue may modify a protected domain at a time.
+- Conflict detection must be enforced.
+
+---
+
+## 10. Governance Invariant
+
+No Issue may skip states.
+
+No Issue may self-approve.
+
+No agent may both implement and provide final approval.
+
+Separation of responsibilities is mandatory.
+
+---
+
+## 11. Minimal Operational Loop
+
+The minimal autonomous cycle is:
+
+Issue → Validate → Classify → Implement → Review → Consensus → Merge
+
+This loop defines the operational heartbeat of Dev Society.
+
+---
+
+## 12. Future Extensions
+
+Potential extensions:
+
+- Automated rollback state
+- Simulation-before-merge state
+- Economic impact simulation state
+- Multi-agent deliberation layer
+
+These are not active in Version 1.0.
+
+---
+
+End of Document.
